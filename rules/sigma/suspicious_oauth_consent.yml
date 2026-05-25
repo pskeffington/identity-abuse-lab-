@@ -1,0 +1,38 @@
+title: Suspicious OAuth Consent With High-Risk Scopes
+id: 4d0d8ef4-1fd4-4e9f-9a61-identity-abuse-lab-003
+status: experimental
+description: Detects OAuth consent events requesting high-risk scopes in the synthetic identity abuse lab.
+author: Paul Skeffington
+references:
+  - https://github.com/pskeffington/identity-abuse-lab-
+date: 2026/05/25
+tags:
+  - attack.persistence
+  - attack.collection
+  - attack.t1550
+author_note: Synthetic lab rule; adapt field names before production use.
+logsource:
+  product: identity-abuse-lab
+  service: idp
+  category: application_consent
+detection:
+  selection:
+    event_type: oauth_consent
+  mail_scope:
+    scopes|contains: mail.read
+  files_scope:
+    scopes|contains: files.read.all
+  offline_access:
+    scopes|contains: offline_access
+  condition: selection and 2 of mail_scope, files_scope, offline_access
+fields:
+  - user_id
+  - timestamp
+  - source
+  - event_type
+  - ip_address
+  - scopes
+falsepositives:
+  - Approved enterprise application onboarding
+  - Administrative testing in development tenants
+level: high
