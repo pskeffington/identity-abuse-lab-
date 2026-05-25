@@ -41,6 +41,9 @@ jobs:
       - name: Assemble manuscript
         run: PYTHONPATH=src python scripts/assemble_manuscript.py
 
+      - name: Build polished manuscript formats
+        run: PYTHONPATH=src python scripts/build_polished_manuscript.py
+
       - name: Build polished deliverable package
         run: PYTHONPATH=src python scripts/build_polished_deliverable.py
 
