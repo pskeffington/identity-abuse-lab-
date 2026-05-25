@@ -43,7 +43,13 @@ class EnrichedScenarioGenerator(ScenarioGenerator):
     def ai_assisted_abuse(self) -> list[IdentityEvent]:
         abnormal_ip = "198.51.100.88"
         return [
-            self._event(0, "email", "lure_received", self.user.normal_ip, {"variant": "ai_assisted"}),
+            self._event(
+                0,
+                "email",
+                "lure_received",
+                self.user.normal_ip,
+                {"variant": "ai_assisted"},
+            ),
             self._event(
                 11,
                 "idp",
