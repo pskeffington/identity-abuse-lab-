@@ -1,0 +1,47 @@
+title: Suspicious Helpdesk Reset or Account Recovery Event
+id: 4d0d8ef4-1fd4-4e9f-9a61-identity-abuse-lab-005
+status: experimental
+description: Detects synthetic helpdesk reset or account recovery events with suspicious verification, urgency, location, or impersonation context.
+author: Paul Skeffington
+references:
+  - https://github.com/pskeffington/identity-abuse-lab-
+date: 2026/05/25
+tags:
+  - attack.initial_access
+  - attack.persistence
+  - attack.t1078
+logsource:
+  product: identity-abuse-lab
+  service: idp
+  category: account_recovery
+detection:
+  selection:
+    event_type: helpdesk_reset
+  helpdesk_channel:
+    reset_channel: helpdesk
+  failed_verification:
+    identity_verified: false
+  urgency_pressure:
+    urgent_request: true
+  geo_context:
+    geo_change: true
+  executive_claim:
+    executive_claim: true
+  condition: selection and helpdesk_channel and 2 of failed_verification, urgency_pressure, geo_context, executive_claim
+fields:
+  - user_id
+  - timestamp
+  - source
+  - event_type
+  - ip_address
+  - reset_channel
+  - identity_verified
+  - urgent_request
+  - geo_change
+  - executive_claim
+falsepositives:
+  - Legitimate helpdesk-assisted account recovery
+  - Executive support requests with documented verification
+  - New employee onboarding
+  - Disaster recovery account restoration
+level: high
