@@ -36,10 +36,34 @@ jobs:
         run: PYTHONPATH=src:. python scripts/verify_expected_results.py
 
       - name: Generate figures
-        run: PYTHONPATH=src python scripts/generate_figures.py
+        run: PYTHONPATH=src MPLBACKEND=Agg python scripts/generate_figures.py
 
       - name: Assemble manuscript
         run: PYTHONPATH=src python scripts/assemble_manuscript.py
+
+      - name: Build polished deliverables
+        run: PYTHONPATH=src python scripts/build_polished_deliverable.py
+
+      - name: Upload polished report DOCX
+        uses: actions/upload-artifact@v4
+        with:
+          name: polished-report-docx
+          path: paper/polished/Identity_Abuse_Lab_Polished_Report.docx
+          if-no-files-found: error
+
+      - name: Upload polished report PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: polished-report-pdf
+          path: paper/polished/Identity_Abuse_Lab_Polished_Report.pdf
+          if-no-files-found: error
+
+      - name: Upload polished deliverable package
+        uses: actions/upload-artifact@v4
+        with:
+          name: polished-deliverable-package
+          path: paper/polished/Identity_Abuse_Lab_Polished_Deliverable.zip
+          if-no-files-found: error
 
       - name: Upload synthetic telemetry
         uses: actions/upload-artifact@v4
