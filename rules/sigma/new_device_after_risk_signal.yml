@@ -1,0 +1,37 @@
+title: New Device Enrollment After Identity Risk Signal
+id: 4d0d8ef4-1fd4-4e9f-9a61-identity-abuse-lab-002
+status: experimental
+description: Detects new-device enrollment or first-seen device activity with suspicious context in the synthetic identity abuse lab.
+author: Paul Skeffington
+references:
+  - https://github.com/pskeffington/identity-abuse-lab-
+date: 2026/05/25
+tags:
+  - attack.persistence
+  - attack.t1078
+logsource:
+  product: identity-abuse-lab
+  service: idp
+  category: device
+detection:
+  selection:
+    event_type: new_device
+  unknown_device:
+    device_trust: unknown
+  reset_context:
+    after_reset: true
+  geo_context:
+    geo_change: true
+  condition: selection and unknown_device and (reset_context or geo_context)
+fields:
+  - user_id
+  - timestamp
+  - source
+  - event_type
+  - ip_address
+  - device_trust
+falsepositives:
+  - Legitimate device replacement
+  - Help-desk assisted onboarding
+  - Authorized password reset followed by new-device enrollment
+level: high
