@@ -41,54 +41,12 @@ jobs:
       - name: Assemble manuscript
         run: PYTHONPATH=src python scripts/assemble_manuscript.py
 
-      - name: Build polished deliverables
+      - name: Build polished deliverable package
         run: PYTHONPATH=src python scripts/build_polished_deliverable.py
 
-      - name: Upload polished report DOCX
+      - name: Upload consolidated polished package
         uses: actions/upload-artifact@v4
         with:
-          name: polished-report-docx
-          path: paper/polished/Identity_Abuse_Lab_Polished_Report.docx
-          if-no-files-found: error
-
-      - name: Upload polished report PDF
-        uses: actions/upload-artifact@v4
-        with:
-          name: polished-report-pdf
-          path: paper/polished/Identity_Abuse_Lab_Polished_Report.pdf
-          if-no-files-found: error
-
-      - name: Upload polished deliverable package
-        uses: actions/upload-artifact@v4
-        with:
-          name: polished-deliverable-package
+          name: identity-abuse-lab-polished-package
           path: paper/polished/Identity_Abuse_Lab_Polished_Deliverable.zip
-          if-no-files-found: error
-
-      - name: Upload synthetic telemetry
-        uses: actions/upload-artifact@v4
-        with:
-          name: synthetic-telemetry
-          path: data/synthetic/*.jsonl
-          if-no-files-found: error
-
-      - name: Upload scored event export
-        uses: actions/upload-artifact@v4
-        with:
-          name: scored-events
-          path: data/processed/scored_events.csv
-          if-no-files-found: error
-
-      - name: Upload paper figures
-        uses: actions/upload-artifact@v4
-        with:
-          name: paper-figures
-          path: paper/figures/*.png
-          if-no-files-found: error
-
-      - name: Upload assembled manuscript
-        uses: actions/upload-artifact@v4
-        with:
-          name: manuscript
-          path: paper/manuscript_assembled.md
           if-no-files-found: error
