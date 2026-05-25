@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import csv
-import shutil
 import zipfile
 from pathlib import Path
 
@@ -24,6 +23,8 @@ from reportlab.platypus import (
 OUTPUT_DIR = Path("paper/polished")
 DOCX_PATH = OUTPUT_DIR / "Identity_Abuse_Lab_Polished_Report.docx"
 PDF_PATH = OUTPUT_DIR / "Identity_Abuse_Lab_Polished_Report.pdf"
+MANUSCRIPT_DOCX = OUTPUT_DIR / "Identity_Abuse_Lab_Manuscript.docx"
+MANUSCRIPT_PDF = OUTPUT_DIR / "Identity_Abuse_Lab_Manuscript.pdf"
 ZIP_PATH = OUTPUT_DIR / "Identity_Abuse_Lab_Polished_Deliverable.zip"
 SCORED_EVENTS_PATH = Path("data/processed/scored_events.csv")
 TIMELINE_FIGURE = Path("paper/figures/timeline_risk.png")
@@ -231,15 +232,25 @@ def build_pdf() -> None:
 def build_zip() -> None:
     if ZIP_PATH.exists():
         ZIP_PATH.unlink()
+    files_to_package = [
+        DOCX_PATH,
+        PDF_PATH,
+        MANUSCRIPT_DOCX,
+        MANUSCRIPT_PDF,
+        SCORED_EVENTS_PATH,
+        TIMELINE_FIGURE,
+        WINDOW_FIGURE,
+        MANUSCRIPT_PATH,
+    ]
     with zipfile.ZipFile(ZIP_PATH, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for path in [DOCX_PATH, PDF_PATH, SCORED_EVENTS_PATH, TIMELINE_FIGURE, WINDOW_FIGURE, MANUSCRIPT_PATH]:
+        for path in files_to_package:
             if path.exists():
                 archive.write(path, arcname=path.name)
         readme_path = OUTPUT_DIR / "README.txt"
         readme_path.write_text(
             "Identity Abuse Lab polished deliverable package.\n\n"
-            "Includes polished DOCX/PDF reports, scored event CSV, generated figures, "
-            "and assembled manuscript when available.\n",
+            "Includes polished executive report, manuscript DOCX/PDF, scored event CSV, "
+            "generated figures, and assembled manuscript when available.\n",
             encoding="utf-8",
         )
         archive.write(readme_path, arcname="README.txt")
