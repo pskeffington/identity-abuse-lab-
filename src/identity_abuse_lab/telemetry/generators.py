@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-import json
 
 from identity_abuse_lab.telemetry.event import IdentityEvent
 
@@ -59,7 +59,13 @@ class ScenarioGenerator:
         """Generate a faster simulated AI-assisted identity-abuse chain."""
         abnormal_ip = "198.51.100.88"
         return [
-            self._event(0, "email", "lure_received", self.user.normal_ip, {"variant": "ai_assisted"}),
+            self._event(
+                0,
+                "email",
+                "lure_received",
+                self.user.normal_ip,
+                {"variant": "ai_assisted"},
+            ),
             self._event(11, "idp", "login", abnormal_ip, {"geo_change": True}),
             self._event(13, "idp", "new_device", abnormal_ip, {"device_trust": "unknown"}),
             self._event(
