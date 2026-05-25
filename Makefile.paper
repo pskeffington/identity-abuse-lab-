@@ -1,0 +1,9 @@
+.PHONY: figures manuscript paper-all
+
+figures:
+	PYTHONPATH=src python scripts/generate_figures.py
+
+manuscript:
+	PYTHONPATH=src python scripts/assemble_manuscript.py
+
+paper-all: figures manuscript
