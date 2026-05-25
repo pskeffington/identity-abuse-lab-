@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "identity-abuse-lab"
+version = "0.1.0"
+description = "Synthetic lab for AI-assisted identity abuse telemetry and detection research."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Paul Skeffington" }
+]
+dependencies = [
+  "pydantic>=2.7",
+  "pandas>=2.2",
+  "matplotlib>=3.8",
+  "python-dateutil>=2.9"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "ruff>=0.5",
+  "mypy>=1.10",
+  "jupyter>=1.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "src"
