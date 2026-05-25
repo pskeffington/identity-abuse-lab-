@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import csv
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 from identity_abuse_lab.detectors.abnormal_login import AbnormalLoginDetector
 from identity_abuse_lab.detectors.export_anomaly import SaaSExportAnomalyDetector
