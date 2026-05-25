@@ -1,0 +1,38 @@
+title: Abnormal Login Context in SaaS Identity Telemetry
+id: 4d0d8ef4-1fd4-4e9f-9a61-identity-abuse-lab-001
+status: experimental
+description: Detects login events with abnormal contextual signals such as geographic change, unfamiliar user agent, or anonymous network use in the synthetic identity abuse lab.
+author: Paul Skeffington
+references:
+  - https://github.com/pskeffington/identity-abuse-lab-
+date: 2026/05/25
+tags:
+  - attack.initial_access
+  - attack.t1078
+  - attack.t1090
+logsource:
+  product: identity-abuse-lab
+  service: idp
+  category: authentication
+detection:
+  selection:
+    event_type: login
+  abnormal_context:
+    geo_change: true
+  unfamiliar_agent:
+    unfamiliar_user_agent: true
+  anonymous_network:
+    anonymous_network: true
+  condition: selection and 2 of abnormal_context, unfamiliar_agent, anonymous_network
+fields:
+  - user_id
+  - timestamp
+  - source
+  - event_type
+  - ip_address
+  - user_agent
+falsepositives:
+  - User travel
+  - Newly provisioned device
+  - Privacy VPN usage by authorized user
+level: medium
