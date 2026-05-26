@@ -2,6 +2,14 @@
 
 A controlled, synthetic research lab for studying AI-assisted identity abuse patterns across enterprise SaaS environments.
 
+**Maintainer:** Paul Skeffington, MS, MPH  
+**Repository status:** active defensive synthetic-lab scaffold.  
+**Last documentation refresh:** 2026-05-26
+
+## Current update — 2026-05-26
+
+The repository remains defensive and synthetic-only. The immediate documentation priority is to keep the lab threat model, synthetic telemetry schema, detection logic, and safety boundaries explicit before adding generated datasets, scoring outputs, notebooks, or white-paper claims.
+
 ## Purpose
 
 This project builds a reproducible internal lab for generating, scoring, and analyzing synthetic identity-abuse telemetry. The goal is to compare baseline user activity, manual abuse chains, and AI-assisted abuse chains using observable identity and SaaS signals.
